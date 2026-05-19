@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casa Mori</title>
+
+  <!-- Adobe Fonts — Proxima Nova (all text) -->
+  <link rel="stylesheet" href="https://use.typekit.net/cts7njg.css" />
+
+  <!-- Google Fonts — Inter (backup font) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       === GLOBAL VARIABLES ===
+       Change a value here and it updates everywhere on the page.
+    ============================================================ */
+
+    :root {
+      /* --- Colours --- */
+      --color-bg:           #0f0e0c;       /* near-black background */
+      --color-surface:      #1a1815;       /* slightly lighter surface for cards */
+      --color-border:       #2e2b27;       /* subtle dividing lines */
+      --color-text-primary: #f0ebe2;       /* warm off-white for headings */
+      --color-text-muted:   #9a9188;       /* secondary text, captions */
+      --color-accent:       #b5894a;       /* gold — used for highlights and CTAs */
+      --color-accent-hover: #d4a96a;       /* lighter gold on hover */
+
+      /* --- Typography --- */
+      --font-heading: 'proxima-nova', 'Inter', system-ui, sans-serif;
+      --font-body:    'proxima-nova', 'Inter', system-ui, sans-serif;
+
+      --size-hero-title:    60pt;
+      --size-section-title: 28pt;
+      --size-body:          12pt;
+      --size-small:         10pt;
+
+      /* --- Spacing --- */
+      --space-xs:   0.5rem;
+      --space-sm:   1rem;
+      --space-md:   2rem;
+      --space-lg:   4rem;
+      --space-xl:   8rem;
+
+      /* --- Layout --- */
+      --max-width:        1100px;
+      --nav-height:       72px;
+      --border-radius:    4px;
+
+      /* --- Transitions --- */
+      --transition-fast:  150ms ease;
+      --transition-med:   300ms ease;
+    }
+
+    /* ============================================================
+       BASE RESET
+    ============================================================ */
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      background-image: url('images/background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: var(--color-text-primary);
+      font-family: var(--font-body);
+      font-size: var(--size-body);
+      font-weight: 300;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ============================================================
+       SHARED UTILITIES
+    ============================================================ */
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin-inline: auto;
+      padding-inline: var(--space-md);
+    }
+
+    .section-label {
+      display: block;
+      font-family: var(--font-body);
+      font-size: var(--size-small);
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-sm);
+    }
+
+    h2 {
+      line-height: 1.3;
+    }
+
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--color-accent);
+      margin-bottom: var(--space-md);
+    }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+
+    #nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      background: rgba(15, 14, 12, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    #nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo img {
+      height: 75px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: var(--size-small);
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-primary);
+      transition: color var(--transition-fast);
+    }
+
+    .nav-links a:hover {
+      color: var(--color-text-primary);
+    }
+
+    /* ============================================================
+       HERO — COMING SOON
+    ============================================================ */
+
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: var(--nav-height);
+      padding-inline: var(--space-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-title {
+      position: relative;
+      margin-bottom: var(--space-md);
+    }
+
+    .hero-tree {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60vw;
+      max-width: 400px;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    .hero-logo {
+      position: relative;
+      width: 240px;
+      max-width: 80vw;
+      display: block;
+      margin-inline: auto;
+    }
+
+    .btn-ghost {
+      background: transparent !important;
+      color: var(--color-accent) !important;
+    }
+
+    .btn-ghost:hover {
+      background: var(--color-accent) !important;
+      color: var(--color-bg) !important;
+    }
+
+    #hero h2 {
+      font-family: var(--font-heading);
+      font-size: var(--size-section-title);
+      font-weight: 300;
+      max-width: 800px;
+      margin-top: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+
+    /* ============================================================
+       BOOK NOW
+    ============================================================ */
+
+    #menu {
+      padding-block: var(--space-xl);
+      text-align: center;
+    }
+
+    #menu h2 {
+      font-family: var(--font-heading);
+      font-size: var(--size-section-title);
+      font-weight: 300;
+      margin-bottom: var(--space-lg);
+    }
+
+    .menu-subtitle {
+      max-width: 560px;
+      margin-inline: auto;
+      margin-bottom: var(--space-lg);
+      color: var(--color-text-primary);
+      line-height: 1.8;
+    }
+
+    .menu-placeholders {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+      flex-wrap: wrap;
+    }
+
+    .menu-placeholder {
+      width: 280px;
+      height: 360px;
+      background-color: #3a3733;
+      border-radius: var(--border-radius);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .menu-placeholder {
+        width: 80vw;
+        height: 240px;
+      }
+    }
+
+    .menu-buttons {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .btn-menu {
+      display: inline-block;
+      background: transparent;
+      color: var(--color-accent);
+      font-family: var(--font-body);
+      font-size: var(--size-small);
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 1rem var(--space-lg);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-accent);
+      cursor: pointer;
+      transition: background var(--transition-med), color var(--transition-med), transform var(--transition-fast);
+    }
+
+    .btn-menu:hover {
+      background: var(--color-accent);
+      color: var(--color-bg);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      display: inline-block;
+      position: relative;
+      background-color: var(--color-accent);
+      color: var(--color-bg);
+      opacity: 1;
+      font-family: var(--font-body);
+      font-size: var(--size-small);
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.85rem var(--space-md);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-accent);
+      cursor: pointer;
+      transition: background-color var(--transition-med), color var(--transition-med), transform var(--transition-fast);
+    }
+
+    .btn-primary:hover {
+      background: var(--color-accent-hover);
+      color: var(--color-bg);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      display: inline-block;
+      background: transparent;
+      color: var(--color-text-primary);
+      font-family: var(--font-body);
+      font-size: var(--size-small);
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.85rem var(--space-md);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-border);
+      cursor: pointer;
+      transition: border-color var(--transition-med), color var(--transition-med);
+      margin-left: var(--space-sm);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+
+
+    /* ============================================================
+       CONTACT
+    ============================================================ */
+
+    #contact {
+      padding-block: var(--space-xl);
+      text-align: center;
+    }
+
+    #contact h2 {
+      font-family: var(--font-heading);
+      font-size: var(--size-section-title);
+      font-weight: 300;
+      margin-bottom: var(--space-md);
+    }
+
+    .map-wrapper {
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      height: 420px;
+      margin-bottom: var(--space-lg);
+    }
+
+    .map-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      filter: brightness(0.9);
+    }
+
+    .contact-blocks {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
+    }
+
+    .contact-block {
+      flex: 1;
+      min-width: 200px;
+      max-width: 300px;
+    }
+
+    .contact-block-label {
+      font-size: var(--size-small);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-xs);
+    }
+
+    .contact-block p:not(.section-label),
+    .contact-block a {
+      color: var(--color-text-primary);
+      line-height: 1.8;
+      transition: color var(--transition-fast);
+    }
+
+    .contact-block a:hover {
+      color: var(--color-text-primary);
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+
+    #footer {
+      padding-block: var(--space-md);
+      text-align: center;
+      background: rgba(15, 14, 12, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    #footer p {
+      font-size: var(--size-small);
+      color: var(--color-text-primary);
+      letter-spacing: 0.05em;
+    }
+
+    /* ============================================================
+       RESPONSIVE — TABLET / MOBILE
+    ============================================================ */
+
+    /* --- Hamburger button --- */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--space-xs);
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--color-text-primary);
+      transition: transform var(--transition-med), opacity var(--transition-fast);
+    }
+
+    /* Animate to X when open */
+    #nav.nav-open .nav-hamburger span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    #nav.nav-open .nav-hamburger span:nth-child(2) {
+      opacity: 0;
+    }
+    #nav.nav-open .nav-hamburger span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --space-xl: 5rem;
+        --space-lg: 3rem;
+      }
+
+      #contact .container {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-hamburger {
+        display: flex;
+        margin-left: auto;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: var(--nav-height);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-md);
+        padding: var(--space-md);
+        background: rgba(15, 14, 12, 0.95);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+
+      #nav.nav-open .nav-links {
+        display: flex;
+      }
+
+      .map-wrapper {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <header id="nav" role="banner">
+    <div class="container">
+      <a href="#" class="nav-logo">
+        <img src="images/nav-logo.png" alt="Casa Mori" />
+      </a>
+      <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav aria-label="Main navigation">
+        <ul class="nav-links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="https://book.bistrochat.com/casa-mori" class="btn-primary btn-ghost" target="_blank" rel="noopener noreferrer">Book Now</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section id="hero" aria-labelledby="hero-title">
+    <div class="hero-content">
+      <h1 id="hero-title" class="hero-title">
+        <img src="images/tree.png" class="hero-tree" alt="" aria-hidden="true" />
+        <img src="images/hero-logo.png" alt="Casa Mori" class="hero-logo" />
+      </h1>
+      <a href="https://book.bistrochat.com/casa-mori" class="btn-primary" target="_blank" rel="noopener noreferrer">Book Now</a>
+      <h2>
+        A dining <em>sanctuary</em> at Dempsey Hill where thoughtful food, warm hospitality, and unhurried moments come together.
+      </h2>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       MENU
+  ============================================================ -->
+  <section id="menu" aria-labelledby="menu-title">
+    <div class="container">
+      <span class="section-label">Your Dining Room in Dempsey Hill</span>
+      <div class="divider" style="margin-inline: auto;"></div>
+      <h2 id="menu-title">Menu</h2>
+      <p class="menu-subtitle">Familiar flavours, reimagined through the perspectives of Chefs Willin Low & José Alonso — thoughtful dishes rooted in heritage, memory, and modern interpretation.</p>
+      <div class="menu-placeholders">
+        <div class="menu-placeholder"></div>
+        <div class="menu-placeholder"></div>
+        <div class="menu-placeholder"></div>
+      </div>
+      <div class="menu-buttons">
+        <a href="#" class="btn-menu">Food</a>
+        <a href="#" class="btn-menu">Drinks</a>
+        <a href="#" class="btn-menu">Lunch</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       CONTACT
+  ============================================================ -->
+  <section id="contact" aria-labelledby="contact-title">
+    <div class="container">
+
+      <span class="section-label">Settle in, slow down, stay awhile</span>
+      <div class="divider" style="margin-inline: auto;"></div>
+      <h2 id="contact-title">Visit Us<br></h2>
+
+      <div class="map-wrapper" aria-label="Map showing Dempsey Hill location">
+        <iframe
+          title="Casa Mori location — Dempsey Hill, Singapore"
+          src="https://maps.google.com/maps?q=11+Dempsey+Road,+Singapore&output=embed"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+
+      <div class="contact-blocks">
+        <div class="contact-block">
+          <p class="section-label">Address</p>
+          <p>11 Dempsey Road, #01-17<br />Singapore 249673</p>
+        </div>
+
+        <div class="contact-block">
+          <p class="section-label">Enquiries</p>
+          <a href="mailto:dine@casamori.sg">dine@casamori.sg</a><br><br>
+          <a href="https://wa.me/6589936049" target="_blank" rel="noopener noreferrer">Call or Whatsapp: <Br> +65 8993 6049</a>
+        </div>
+
+        <div class="contact-block">
+          <p class="section-label">Hours</p>
+          <p>Tuesday – Friday: <br> 11:30AM – 2:30PM (Lunch) <br> 5:30PM – 10:30PM (Dinner)<br /><br>
+             Saturday: 11AM – 10:30PM<br />
+             Sunday: 11AM – 10PM<br />
+             Closed Mondays</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer id="footer" role="contentinfo">
+    <div class="container">
+      <p>&copy; 2026 Casa Mori · Cantera Collective</p>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    const hamburger = document.querySelector('.nav-hamburger');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('nav-open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('nav-open');
+        hamburger.setAttribute('aria-expanded', false);
+      });
+    });
+  </script>
+
+</body>
+</html>
